@@ -5,13 +5,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=Edge" >
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
-        <meta name="author" content="fairsketch">
-        <link rel="icon" href="./assets/images/favicon.png" />
-        <title>Web Project Builder</title>
-        <link rel='stylesheet' type='text/css' href='../assets/css/bootstrap.min.css' />
+        <meta name="author" content="Web project builder">
+        <title>Installation</title>
+        <link rel='stylesheet' type='text/css' href='assets/css/bootstrap.css' />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <link rel='stylesheet' type='text/css' href='assets/css/install.css' />
+        <link rel="shortcut icon" href="../assets/images/favicon.ico" />
 
         <script type='text/javascript'  src='../assets/js/jquery.min.js'></script>
         <script type='text/javascript'  src='assets/jquery-validation/jquery.validate.min.js'></script>
@@ -23,7 +23,7 @@
 
             <div class="panel panel-install">
                 <div class="panel-heading text-center">                    
-                    <h2> Web Project Builder</h2>
+                    <h2> Installation</h2>
                 </div>
                 <div class="panel-body no-padding">
                     <div class="tab-container clearfix">
@@ -39,7 +39,7 @@
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="pre-installation-tab">
                             <div class="section">
-                                <p>1. Please configure your PHP settings to match following requirements:</p>
+                                <p> <strong>Please configure your PHP settings to match following requirements:</strong></p>
                                 <hr />
                                 <div>
                                     <table>
@@ -70,7 +70,7 @@
                             </div>
 
                             <div class="section">
-                                <p>2. Please make sure the extensions/settings listed below are installed/enabled:</p>
+                                <p> <strong>Please make sure the extensions/settings listed below are installed/enabled:</strong></p>
                                 <hr />
                                 <div>
                                     <table>
@@ -175,7 +175,7 @@
                             </div>
 
                             <div class="section">
-                                <p>3. Please make sure you have set the <strong>writable</strong> permission on the following folders/files:</p>
+                                <p><strong>Please make sure you have set the <code>writable</code> permission on the following files:</strong></p>
                                 <hr />
                                 <div>
                                     <table>
@@ -217,7 +217,7 @@
                             <form name="config-form" id="config-form" action="do_install.php" method="post">
 
                                 <div class="section clearfix">
-                                    <p>1. Please enter your database connection details.</p>
+                                    <p> <strong>Please enter your database connection details.</strong></p>
                                     <hr />
                                     <div>
                                         <div class="form-group clearfix">
@@ -248,7 +248,7 @@
                                 </div>
 
                                 <div class="section clearfix">
-                                    <p>2. Please enter your account details for administration.</p>
+                                    <p><strong>Please enter your account details for administration.</strong></p>
                                     <hr />
                                     <div>
                                         <div class="form-group clearfix">
@@ -305,6 +305,9 @@
                                     </div>
                                 </a>
                             </div>
+                        </div>
+                        <div class="text-center m-b-10">
+                            Thanks for using <a href="http://www.webprojectbuilder.com">Web Project Builder</a>
                         </div>
                     </div>
                 </div>

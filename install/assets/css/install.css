@@ -30,7 +30,7 @@ hr{
     font-size: 20px;
 }
 .status.fa-check-circle-o{
-    color: #00b393;
+    color: #007AFF;
 }
 .status.fa-times-circle-o{
     color: #d73b3b;
@@ -41,7 +41,7 @@ hr{
     border-bottom: none;
 }
 .tab-title.active{
-    background: #00b393;
+    background: #007AFF;
     color: #fff;
 }
 .form-group{
@@ -61,15 +61,15 @@ hr{
     margin: 20px 0;                
 }
 .panel-install>.panel-heading{
-    background-color: #1d2632;
-    color: #93a4c3;
+    background-color: #525050;
+    color: #fff;
     border-bottom: none;
 }
 .no-padding{
     padding: 0;
 }
 .btn-info{
-    background-color: #00b393;
+    background-color: #007AFF;
     border: none;
     width: 100%;
     padding: 15px;
@@ -78,11 +78,11 @@ hr{
 .btn-info:focus,
 .btn-info:active
 {
-    background-color: #00b3a2 !important;
+    background-color: #0043ff !important;
     border: none !important;
 }
 .btn-info[disabled]{
-    background-color: #24BFA4 !important;
+    background-color: #0043ff !important;
     border: none !important;
 }
 label{
@@ -112,4 +112,13 @@ label{
 .go-to-login-page:hover{
     color: #13B195; 
     text-decoration: none;
+}
+hr{
+    background-image: linear-gradient(to left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+    border: 0 none;
+    height: 1px;
+    margin: 22px 0;
+}
+.m-b-10{
+    margin-bottom: 10px;
 }

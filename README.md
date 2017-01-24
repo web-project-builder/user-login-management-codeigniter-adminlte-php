@@ -42,9 +42,10 @@ It can be used as a base platform for any CodeIgniter project.
 
 Installation
 ----
-- Sql file will be in "Install" folder on root
-- Create a database and import the sql file in your mysql database
-- It has a config file that lets you store your database connection values (username, password, database name, etc.). The config file is located at application/config/database.php
+It have interface of installation panel to quickly install the script on our server.
+Upload the code on your server and hit the url as shown below:
+
+Eg: yourdomain.com/install
 
 
 
