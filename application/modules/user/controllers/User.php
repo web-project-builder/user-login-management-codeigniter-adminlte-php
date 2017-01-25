@@ -367,7 +367,7 @@ class User extends CI_Controller {
                     if(password_verify($this->input->post('currentpassword'), $old_row->password)){
                         if($this->input->post('password') == $this->input->post('confirmPassword')){
                             $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
-                            $data['password']= $password;     
+                            //$data['password'] = $password;     
                         } else {
                             $this->session->set_flashdata('messagePr', 'Password and confirm password should be same...');
                             redirect( base_url().'user/'.$redirect, 'refresh');
@@ -390,12 +390,12 @@ class User extends CI_Controller {
                 $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
                 $checkValue = $this->User_model->check_exists('users','email',$this->input->post('email'));
                 if($checkValue==false)  {  
-                    $this->session->set_flashdata('messagePr', 'This Email Already Registerde with us..');
+                    $this->session->set_flashdata('messagePr', 'This Email Alrady Registerde with us..');
                     redirect( base_url().'user/userTable', 'refresh');
                 }
                 $checkValue1 = $this->User_model->check_exists('users','name',$this->input->post('name'));
                 if($checkValue1==false) {  
-                    $this->session->set_flashdata('messagePr', 'Username Already Registerde with us..');
+                    $this->session->set_flashdata('messagePr', 'Username Alrady Registerde with us..');
                     redirect( base_url().'user/userTable', 'refresh');
                 }
                 $data = array(  
