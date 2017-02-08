@@ -72,6 +72,6 @@ About Us
 ---
 We are [IBR Infotech,](http://www.ibrinfotech.com) team of software developers working on various technologies like PHP, Codeigniter, Laravel, Worpdress, Wordpress Plugin Development, Angular JS,Node JS Mobile Applications (Android and IOS) and many more...
 
-![N|Solid](http://www.webprojectbuilder.com/assets/home_images/icon.png) [Created with Web Project Builder](http://www.webprojectbuilder.com/) - A smart PHP Project Builder
+![N|Solid](http://dev1.ibrinfotech.com/trak/show.php?source=github&item=user-login-management-codeigniter-adminlte-php) [Created with Web Project Builder](http://www.webprojectbuilder.com/) - A smart PHP Project Builder
 
 A Product of [IBR Infotech](http://www.ibrinfotech.com)
