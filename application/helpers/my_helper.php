@@ -4,6 +4,7 @@
 **/
  function CheckPermission($moduleName="", $method=""){
 	 $CI = get_instance();
+	$moduleName = strtolower(str_replace(' ', '_', $moduleName));
     $permission = isset($CI->session->get_userdata()['user_details'][0]->user_type)?$CI->session->get_userdata()['user_details'][0]->user_type:'';
     if(isset($permission) && $permission != "" ) 
 	{

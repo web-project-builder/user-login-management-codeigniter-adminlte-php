@@ -5,7 +5,7 @@ class User extends CI_Controller {
     function __construct() {
         parent::__construct(); 
 		$this->load->model('User_model');
-		$this->user_id = isset($this->session->get_userdata()['user_details'][0]->id)?$this->session->get_userdata()['user_details'][0]->id:'1';
+		$this->user_id = isset($this->session->get_userdata()['user_details'][0]->id)?$this->session->get_userdata()['user_details'][0]->users_id:'1';
     }
 
     /**
@@ -93,13 +93,13 @@ class User extends CI_Controller {
         if($this->input->post()){
             $setting = settings();
             $res = $this->User_model->get_data_by('users', $this->input->post('email'), 'email',1);
-            if(isset($res[0]->id) && $res[0]->id != '') { 
+            if(isset($res[0]->users_id) && $res[0]->users_id != '') { 
                 $var_key = $this->getVarificationCode(); 
-                $this->User_model->updateRow('users', 'id', $res[0]->id, array('var_key' => $var_key));
+                $this->User_model->updateRow('users', 'users_id', $res[0]->users_id, array('var_key' => $var_key));
                 $sub = "Reset password";
                 $email = $this->input->post('email');      
                 $data = array(
-                    'user_name' => $res[0]->firstName,
+                    'user_name' => $res[0]->name,
                     'action_url' =>base_url(),
                     'sender_name' => $setting['company_name'],
                     'website_name' => $setting['website'],
@@ -183,7 +183,7 @@ class User extends CI_Controller {
      */
     public function userTable(){
         is_login();
-        if(CheckPermission("users", "own_read")){
+        if(CheckPermission("user", "own_read")){
             $this->load->view('include/header');
             $this->load->view('user_table');                
             $this->load->view('include/footer');            
@@ -200,15 +200,12 @@ class User extends CI_Controller {
     public function dataTable (){
         is_login();
 	    $table = 'users';
-    	$primaryKey = 'id';
+    	$primaryKey = 'users_id';
     	$columns = array(
-            array( 'db' => 'id', 'dt' => 0 ),
-		    array( 'db' => 'firstName', 'dt' => 1 ),
-		    array( 'db' => 'lastName',  'dt' => 2 ),
-		    array( 'db' => 'name',  'dt' => 3 ),
-		    array( 'db' => 'email',  'dt' => 4 ),
-		    array( 'db' => 'status',  'dt' => 5 ),
-		    array( 'db' => 'id',  'dt' => 6 ),
+           array( 'db' => 'users_id', 'dt' => 0 ),array( 'db' => 'status', 'dt' => 1 ),
+					array( 'db' => 'name', 'dt' => 2 ),
+					array( 'db' => 'email', 'dt' => 3 ),
+					array( 'db' => 'users_id', 'dt' => 4 )
 		);
 
         $sql_details = array(
@@ -222,27 +219,22 @@ class User extends CI_Controller {
 		foreach ($output_arr['data'] as $key => $value) {
 			$id = $output_arr['data'][$key][count($output_arr['data'][$key])  - 1];
 			$output_arr['data'][$key][count($output_arr['data'][$key])  - 1] = '';
-			if(CheckPermission($table, "all_update")){
+			if(CheckPermission('user', "all_update")){
 			$output_arr['data'][$key][count($output_arr['data'][$key])  - 1] .= '<a id="btnEditRow" class="modalButtonUser mClass"  href="javascript:;" type="button" data-src="'.$id.'" title="Edit"><i class="fa fa-pencil" data-id=""></i></a>';
-			}else if(CheckPermission($table, "own_update") && (CheckPermission($table, "all_update")!=true)){
-				$user_id =getRowByTableColomId($table,$id,'id','user_id');
+			}else if(CheckPermission('user', "own_update") && (CheckPermission('user', "all_update")!=true)){
+				$user_id =getRowByTableColomId($table,$id,'users_id','user_id');
 				if($user_id==$this->user_id){
 			$output_arr['data'][$key][count($output_arr['data'][$key])  - 1] .= '<a id="btnEditRow" class="modalButtonUser mClass"  href="javascript:;" type="button" data-src="'.$id.'" title="Edit"><i class="fa fa-pencil" data-id=""></i></a>';
 				}
 			}
 			
-			if(CheckPermission($table, "all_delete")){
+			if(CheckPermission('user', "all_delete")){
 			$output_arr['data'][$key][count($output_arr['data'][$key])  - 1] .= '<a style="cursor:pointer;" data-toggle="modal" class="mClass" onclick="setId('.$id.', \'user\')" data-target="#cnfrm_delete" title="delete"><i class="fa fa-trash-o" ></i></a>';}
-			else if(CheckPermission($table, "own_delete") && (CheckPermission($table, "all_delete")!=true)){
-				$user_id =getRowByTableColomId($table,$id,'id','user_id');
+			else if(CheckPermission('user', "own_delete") && (CheckPermission('user', "all_delete")!=true)){
+				$user_id =getRowByTableColomId($table,$id,'users_id','user_id');
 				if($user_id==$this->user_id){
 			$output_arr['data'][$key][count($output_arr['data'][$key])  - 1] .= '<a style="cursor:pointer;" data-toggle="modal" class="mClass" onclick="setId('.$id.', \'user\')" data-target="#cnfrm_delete" title="delete"><i class="fa fa-trash-o" ></i></a>';
 				}
-			}
-			if($output_arr['data'][$key][5] == 1) {
-				$output_arr['data'][$key][5] = 'Active';
-			} else if($output_arr['data'][$key][5] == 0){
-				$output_arr['data'][$key][5] = 'Inactive';
 			}
             $output_arr['data'][$key][0] = '<input type="checkbox" name="selData" value="'.$output_arr['data'][$key][0].'">';
 		}
@@ -256,7 +248,7 @@ class User extends CI_Controller {
     public function profile($id='') {   
         is_login();
         if(!isset($id) || $id == '') {
-            $id = $this->session->userdata ('user_details')[0]->id;
+            $id = $this->session->userdata ('user_details')[0]->users_id;
         }
         $data['user_data'] = $this->User_model->get_users($id);
         $this->load->view('include/header'); 
@@ -271,7 +263,7 @@ class User extends CI_Controller {
     public function get_modal() {
         is_login();
         if($this->input->post('id')){
-            $data['userData'] = getDataByid('users',$this->input->post('id'),'id'); 
+            $data['userData'] = getDataByid('users',$this->input->post('id'),'users_id'); 
             echo $this->load->view('add_user', $data, true);
         } else {
             echo $this->load->view('add_user', '', true);
@@ -310,11 +302,11 @@ class User extends CI_Controller {
     public function add_edit($id='') {   
         $data = $this->input->post();
         $profile_pic = 'user.png';
-        if($this->input->post('id')) {
-            $id = $this->input->post('id');
+        if($this->input->post('users_id')) {
+            $id = $this->input->post('users_id');
         }
-        if(isset($this->session->userdata ('user_details')[0]->id)) {
-            if($this->input->post('id') == $this->session->userdata ('user_details')[0]->id){
+        if(isset($this->session->userdata ('user_details')[0]->users_id)) {
+            if($this->input->post('users_id') == $this->session->userdata ('user_details')[0]->users_id){
                 $redirect = 'profile';
             } else {
                 $redirect = 'userTable';
@@ -347,27 +339,20 @@ class User extends CI_Controller {
             } 
         }
         if($id != '') {
-            $data = array(  
-                'firstName' => $this->input->post('firstName') ,
-                'lastName' => $this->input->post('lastName') ,
-                'name' => $this->input->post('name'),
-                'email' => $this->input->post('email'),                            
-                'user_type' => $this->input->post('user_type'),
-                'profile_pic' => $profile_pic                  
-            );
+            $data = $this->input->post();
             if($this->input->post('status') != '') {
                 $data['status'] = $this->input->post('status');
             }
-            if($this->input->post('id') == 1) { 
+            if($this->input->post('users_id') == 1) { 
             $data['user_type'] = 'admin';
             }
             if($this->input->post('password') != '') {
                 if($this->input->post('currentpassword') != '') {
-                    $old_row = getDataByid('users', $this->input->post('id'), 'id');
+                    $old_row = getDataByid('users', $this->input->post('users_id'), 'users_id');
                     if(password_verify($this->input->post('currentpassword'), $old_row->password)){
                         if($this->input->post('password') == $this->input->post('confirmPassword')){
                             $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
-                            //$data['password'] = $password;     
+                            $data['password']= $password;     
                         } else {
                             $this->session->set_flashdata('messagePr', 'Password and confirm password should be same...');
                             redirect( base_url().'user/'.$redirect, 'refresh');
@@ -381,41 +366,56 @@ class User extends CI_Controller {
                     redirect( base_url().'user/'.$redirect, 'refresh');
                 }
             }
-            $id = $this->input->post('id');
-            $this->User_model->updateRow('users', 'id', $id, $data);
+            $id = $this->input->post('users_id');
+            unset($data['fileOld']);
+            unset($data['currentpassword']);
+            unset($data['confirmPassword']);
+            unset($data['users_id']);
+            unset($data['user_type']);
+            if(isset($data['edit'])){
+                unset($data['edit']);
+            }
+            if($data['password'] == ''){
+                unset($data['password']);
+            }
+            $data['profile_pic'] = $profile_pic;
+            $this->User_model->updateRow('users', 'users_id', $id, $data);
             $this->session->set_flashdata('messagePr', 'Your data updated Successfully..');
             redirect( base_url().'user/'.$redirect, 'refresh');
         } else { 
             if($this->input->post('user_type') != 'admin') {
+                $data = $this->input->post();
                 $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
                 $checkValue = $this->User_model->check_exists('users','email',$this->input->post('email'));
                 if($checkValue==false)  {  
-                    $this->session->set_flashdata('messagePr', 'This Email Alrady Registerde with us..');
+                    $this->session->set_flashdata('messagePr', 'This Email Already Registered with us..');
                     redirect( base_url().'user/userTable', 'refresh');
                 }
                 $checkValue1 = $this->User_model->check_exists('users','name',$this->input->post('name'));
                 if($checkValue1==false) {  
-                    $this->session->set_flashdata('messagePr', 'Username Alrady Registerde with us..');
+                    $this->session->set_flashdata('messagePr', 'Username Already Registered with us..');
                     redirect( base_url().'user/userTable', 'refresh');
                 }
-                $data = array(  
-                            'firstName' => $this->input->post('firstName') ,
-                            'lastName' => $this->input->post('lastName') ,
-                            'name' => $this->input->post('name') ,
-                            'email' => $this->input->post('email'),
-                            'password' => $password,
-                            'user_type' => $this->input->post('user_type'),
-                            'profile_pic' => $profile_pic
-                );
+                $data['status'] = 'active';
                 if(setting_all('admin_approval') == 1) {
-                    $data['status'] = 0;
+                    $data['status'] = 'deleted';
                 }
                 
                 if($this->input->post('status') != '') {
                     $data['status'] = $this->input->post('status');
                 }
-                $data['token'] = $this->generate_token();
+                //$data['token'] = $this->generate_token();
                 $data['user_id'] = $this->user_id;
+                $data['password'] = $password;
+                $data['profile_pic'] = $profile_pic;
+                $data['is_deleted'] = 0;
+                if(isset($data['password_confirmation'])){
+                    unset($data['password_confirmation']);    
+                }
+                if(isset($data['call_from'])){
+                    unset($data['call_from']);    
+                }
+                unset($data['submit']);
                 $this->User_model->insertRow('users', $data);
                 redirect( base_url().'user/'.$redirect, 'refresh');
             } else {
@@ -478,7 +478,7 @@ class User extends CI_Controller {
                                 $emm = mail($mailValue,'Invitation for registration',$body,$headers);
                             }
 			    			if($emm) {
-			    				$darr = array('email' => $mailValue, 'token' => $var_key);
+			    				$darr = array('email' => $mailValue, 'var_key' => $var_key);
 			    				$this->User_model->insertRow('users', $darr);
 			    				$result['seccessCount'] += 1;;
 			    			}
@@ -503,11 +503,11 @@ class User extends CI_Controller {
      */
     public function chekInvitation() {
     	if($this->input->post('code') && $this->input->post('code') != '') {
-    		$res = $this->User_model->get_data_by('users', $this->input->post('code'), 'token');
+    		$res = $this->User_model->get_data_by('users', $this->input->post('code'), 'var_key');
     		$result = array();
     		if(is_array($res) && !empty($res)) {
     			$result['email'] = $res[0]->email;
-    			$result['id'] = $res[0]->id;
+    			$result['users_id'] = $res[0]->users_id;
     			$result['result'] = 'success';
     		} else {
     			$this->session->set_flashdata('messagePr', 'This code is not valid..');
@@ -523,18 +523,25 @@ class User extends CI_Controller {
      * @return Void
      */
     public function register_invited($id){
+        $data = $this->input->post();
         $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
-        $data = array(
-  					'user_type' => $this->input->post('user_type'),
-  					'firstName' => $this->input->post('firstName'),
-  					'lastName' => $this->input->post('lastName'),
-  					'name' => $this->input->post('name'),
-  					'password' => $password,
-  					'token' => NULL
-  		);
-  		$this->User_model->updateRow('users', 'id', $id, $data);
-  		$this->session->set_flashdata('messagePr', 'Successfully Registered..');
-		redirect( base_url().'user/login', 'refresh');
+        $data['password'] = $password;
+        $data['var_key'] = NULL;
+        $data['is_deleted'] = 0;
+        $data['status'] = 'active';
+        $data['user_id'] = 1;
+        if(isset($data['password_confirmation'])) {
+            unset($data['password_confirmation']);
+        }
+        if(isset($data['call_from'])) {
+            unset($data['call_from']);
+        }
+        if(isset($data['submit'])) {
+            unset($data['submit']);
+        }
+        $this->User_model->updateRow('users', 'users_id', $id, $data);
+        $this->session->set_flashdata('messagePr', 'Successfully Registered..');
+        redirect( base_url().'user/login', 'refresh');
     }
 
     /**
@@ -545,7 +552,7 @@ class User extends CI_Controller {
       	$result = 1;
       	$res = $this->User_model->get_data_by('users', $this->input->post('email'), 'email');
       	if(!empty($res)){
-      		if($res[0]->id != $this->input->post('uId')){
+      		if($res[0]->users_id != $this->input->post('uId')){
       			$result = 0;
       		}
       	}

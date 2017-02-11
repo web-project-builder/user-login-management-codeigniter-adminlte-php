@@ -209,6 +209,7 @@
                                 </div>
                                 <div class="row col-md-10" align="center">
                                   <div class="form-group sub-btn-wdt">
+                                    <input name="register_allowed" type="hidden" value="<?php if(isset($result['register_allowed'])&& $result['register_allowed']==1){echo'1';} else { echo '0'; }?>" >
                                     <input type="submit" value="Save" class="btn btn-success wdt-bg">
                                   </div>          
                                 </div>
@@ -299,9 +300,9 @@
                                               }
                                             ?>
                                               <tr>
-                                                <th scope="col" colspan="5" class="showRolesPermission text-center"><?php echo $perkey;?>
+                                                <th scope="col" colspan="5" class="showRolesPermission text-center"><?php echo ucfirst(str_replace('_', ' ', $perkey));?>
                                                   <?php  
-                                                        $perkey = str_replace(' ', '_SPACE_', $perkey); 
+                                                        //$perkey = str_replace(' ', '_SPACE_', $perkey); 
                                                         $user_type = str_replace(' ', '_SPACE_', $user_type); 
                                                   ?>
                                                   <input type="hidden" name="data[<?php echo $user_type;?>][<?php echo $perkey;?>]" value="<?php echo $perkey;?>" />
@@ -328,9 +329,9 @@
                                               foreach(json_decode($blanckModule1) as $key1=>$value1) {	
                                       ?>
                                                 <tr>
-                                                  <th scope="col" colspan="5" class="showRolesPermission text-center"><?php echo $key1;?>
+                                                  <th scope="col" colspan="5" class="showRolesPermission text-center"><?php echo ucfirst(str_replace('_', ' ', $key1));?>
                                                     <?php  
-                                                      $key1 = str_replace(' ', '_SPACE_', $key1); 
+                                                      //$key1 = str_replace(' ', '_SPACE_', $key1); 
                                                       $user_type = str_replace(' ', '_SPACE_', $user_type); 
                                                     ?>
                                                     <input type="hidden" name="data[<?php echo $user_type;?>][<?php echo $key1;?>]" value="<?php echo $key1;?>" />

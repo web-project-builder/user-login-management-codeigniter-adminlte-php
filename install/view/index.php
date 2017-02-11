@@ -251,7 +251,7 @@
                                     <p><strong>Please enter your account details for administration.</strong></p>
                                     <hr />
                                     <div>
-                                        <div class="form-group clearfix">
+                                        <!-- <div class="form-group clearfix">
                                             <label for="first_name" class=" col-md-3">First Name</label>
                                             <div class="col-md-9">
                                                 <input type="text" value=""  id="first_name"  name="first_name" class="form-control"  placeholder="Your first name" />
@@ -262,7 +262,7 @@
                                             <div class=" col-md-9">
                                                 <input type="text" value="" id="last_name"  name="last_name" class="form-control"  placeholder="Your last name" />
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group clearfix">
                                             <label for="email" class=" col-md-3">Email</label>
                                             <div class=" col-md-9">

@@ -13,7 +13,7 @@
 		    <?php } ?>
 		    <form action="<?php echo base_url().'user/auth_user'; ?>" method="post">
 		    	<div class="form-group has-feedback">
-		    		<input type="text" name="email" class="form-control" id="" placeholder="Email or Username">
+		    		<input type="text" name="email" class="form-control" id="" placeholder="Email">
 		        	<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 		      	</div>
 				<div class="form-group has-feedback">

@@ -2,7 +2,7 @@
 class User_model extends CI_Model {       
 	function __construct(){            
 	  	parent::__construct();
-		$this->user_id =isset($this->session->get_userdata()['user_details'][0]->id)?$this->session->get_userdata()['user_details'][0]->id:'1';
+		$this->user_id =isset($this->session->get_userdata()['user_details'][0]->id)?$this->session->get_userdata()['user_details'][0]->users_id:'1';
 	}
 
 	/**
@@ -15,7 +15,7 @@ class User_model extends CI_Model {
 		$result = $this->db->get('users')->result();
 		if(!empty($result)){       
 			if (password_verify($password, $result[0]->password)) {       
-				if($result[0]->status != 1) {
+				if($result[0]->status != 'active') {
 					return 'not_varified';
 				}
 				return $result;                    
@@ -33,7 +33,7 @@ class User_model extends CI_Model {
      * @param: $id - id of user table
      */
 	function delete($id='') {
-		$this->db->where('id', $id);  
+		$this->db->where('users_id', $id);  
 		$this->db->delete('users'); 
 	}
 	
@@ -96,11 +96,11 @@ class User_model extends CI_Model {
 	function get_users($userID = '') {
 		$this->db->where('is_deleted', '0');                  
 		if(isset($userID) && $userID !='') {
-			$this->db->where('id', $userID); 
+			$this->db->where('users_id', $userID); 
 		} else if($this->session->userdata('user_details')[0]->user_type == 'admin') {
 			$this->db->where('user_type', 'admin'); 
 		} else {
-			$this->db->where('users.id !=', '1'); 
+			$this->db->where('users.users_id !=', '1'); 
 		}
 		$result = $this->db->get('users')->result();
 		return $result;

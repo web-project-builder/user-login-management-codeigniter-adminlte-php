@@ -189,6 +189,7 @@ $(document).ready(function() {
       }).done(function(data) {
         $('#previewModal').find('div.modal-body').html(data);
         $('#previewModal').modal('show');
+        $('#previewModal').find('a').attr('href', 'javascript:;');
       });
     });
 

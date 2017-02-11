@@ -16,23 +16,18 @@
           </div>
         <?php } ?>
         <form action="<?php echo base_url().'user/registration'; ?>" method="post">
-          <div class="form-group has-feedback">
-            <input type="text" name="firstName" class="form-control" data-validation="required" placeholder="First Name">
-            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-          </div>
-          <div class="form-group has-feedback">
-            <input type="text" class="form-control" name="lastName" placeholder="Last Name">
-            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-          </div>
-          <div class="form-group has-feedback">
-            <input type="text" class="form-control" name="name" data-validation="required" placeholder="Username">
-            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-          </div>
-          <div class="form-group has-feedback">
-            <input type="email" class="form-control" name="email" data-validation="email" placeholder="Email">
-            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-          </div>
-          <div class="form-group has-feedback">
+          
+						<div class="form-group has-feedback">
+			            <input type="text" name="name" class="form-control" data-validation="required" placeholder="Name">
+			            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+			          </div>
+					
+						<div class="form-group has-feedback">
+			            <input type="text" name="email" class="form-control" data-validation="required" placeholder="Email">
+			            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+			          </div>
+					
+           <div class="form-group has-feedback">
             <input type="password" class="form-control" name="password_confirmation" placeholder="Password" data-validation="required">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
@@ -84,7 +79,7 @@ $(document).ready(function(){
       console.log(data);
       if(data.result == 'success') {
         $('[name="email"]').val(data.email);
-        $('form').attr('action', $burl + 'user/register_invited/' + data.id);
+        $('form').attr('action', $burl + 'user/register_invited/' + data.users_id);
       } else{
         window.location.href= $burl + 'user/login';
       }

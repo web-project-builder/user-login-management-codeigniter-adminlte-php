@@ -32,29 +32,35 @@
           </div>
           <div class="col-md-8">
             <h3>Personal Information:</h3>
-            <div class="form-group has-feedback clear-both">
-              <label for="exampleInputEmail1">First Name:</label>
-              <input type="text" id="firstName" name="firstName" value="<?php echo (isset($user_data[0]->firstName)?$user_data[0]->firstName:'');?>" required="required" class="form-control" placeholder="First Name">
-              <span class="glyphicon glyphicon-user form-control-feedback"></span>
-            </div>
+            
 
-            <div class="form-group has-feedback">
-              <label for="exampleInputEmail1">Last Name:</label>
-              <input type="text" id="lastName" name="lastName" value="<?php echo (isset($user_data[0]->lastName)?$user_data[0]->lastName:'');?>" required="required" class="form-control" placeholder="Last Name">
-              <span class="glyphicon glyphicon-user form-control-feedback"></span>
-            </div>
+					<div class="form-group has-feedback">
+		              <label for="exampleInputstatus">Status:</label>
+		              <select name="status" id="status" class="form-control">
+		        			<option value="active" <?php echo (isset($user_data[0]->status) && $user_data[0]->status == 'active' ?'selected="selected"':'');?> >Active</option>
+		        			
+		        			<option value="deleted" <?php echo (isset($user_data[0]->status) && $user_data[0]->status == 'deleted' ?'selected="selected"':'');?> >Deleted</option>
+		        			
+		              </select>
+		            </div>
 
-            <div class="form-group has-feedback">
-              <label for="exampleInputEmail1">User Name:</label>
-              <input type="text" class="form-control" name="name" value="<?php echo (isset($user_data[0]->name)?$user_data[0]->name:'');?>" placeholder="User Name">
-              <span class="glyphicon glyphicon-user form-control-feedback"></span>
-            </div>
-                    
-            <div class="form-group has-feedback">
-              <label for="exampleInputEmail1">Email:</label>
-              <input type="email" id="profileEmail" name="email" value="<?php echo (isset($user_data[0]->email)?$user_data[0]->email:'');?>" class="form-control">
-              <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-            </div>
+					
+
+					<div class="form-group has-feedback clear-both">
+		              <label for="exampleInputname">Name:</label>
+		              <input type="text" id="name" name="name" value="<?php echo (isset($user_data[0]->name)?$user_data[0]->name:'');?>" required="required" class="form-control" placeholder="Name">
+		              <span class="glyphicon glyphicon-user form-control-feedback"></span>
+		            </div>
+
+					
+
+					<div class="form-group has-feedback clear-both">
+		              <label for="exampleInputemail">Email:</label>
+		              <input type="text" id="email" name="email" value="<?php echo (isset($user_data[0]->email)?$user_data[0]->email:'');?>" required="required" class="form-control" placeholder="Email">
+		              <span class="glyphicon glyphicon-user form-control-feedback"></span>
+		            </div>
+
+					
               <br>
             <h3>Change Password:</h3>
             <div class="form-group has-feedback">
@@ -74,7 +80,7 @@
             </div>  
             <br>
             <div class="form-group has-feedback sub-btn-wdt" >
-              <input type="hidden" name="id" value="<?php echo isset($user_data[0]->id)?$user_data[0]->id:''; ?>">
+              <input type="hidden" name="users_id" value="<?php echo isset($user_data[0]->users_id)?$user_data[0]->users_id:''; ?>">
               <input type="hidden" name="user_type" value="<?php echo isset($user_data[0]->user_type)?$user_data[0]->user_type:''; ?>">
               <button name="submit1" type="button" id="profileSubmit" class="btn btn-success btn-md wdt-bg">Save</button>  
               <!-- <div class=" pull-right">

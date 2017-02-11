@@ -26,11 +26,9 @@
               <thead>
                 <tr>
                   <th><input type="checkbox" class="selAll"></th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Name</th>
-                  <th>Email</th>
                   <th>Status</th>
+									<th>Name</th>
+									<th>Email</th>
                   <th>Action</th>
                 </tr>
               </thead>

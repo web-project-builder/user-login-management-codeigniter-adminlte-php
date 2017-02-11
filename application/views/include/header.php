@@ -103,7 +103,7 @@
                 <?php $this->load->view("include/menu");?> 
                 
                
-               <?php if(CheckPermission("users", "own_read")){ ?>
+               <?php if(CheckPermission("user", "own_read")){ ?>
                     <li class="<?=($this->router->method==="userTable")?"active":"not-active"?>"> 
                         <a href="<?php echo base_url();?>user/userTable"> <i class="fa fa-users"></i> <span>Users</span></a>
                     </li>    

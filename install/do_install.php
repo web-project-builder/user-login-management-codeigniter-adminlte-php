@@ -1,6 +1,6 @@
 <?php
 
-ini_set('max_execution_time', 300); //300 seconds 
+ini_set('max_execution_time', 900); //300 seconds 
 
 if (isset($_POST)) {
     $host = $_POST["host"];
@@ -8,14 +8,14 @@ if (isset($_POST)) {
     $dbpassword = $_POST["dbpassword"];
     $dbname = $_POST["dbname"];
 
-    $first_name = $_POST["first_name"];
-    $last_name = $_POST["last_name"];
+    /*$first_name = $_POST["first_name"];
+    $last_name = $_POST["last_name"];*/
     $email = $_POST["email"];
     $login_password = $_POST["password"] ? $_POST["password"] : "";
 
 
     //check required fields
-    if (!($host && $dbuser && $dbname && $first_name && $last_name && $email && $login_password)) {
+    if (!($host && $dbuser && $dbname && $email && $login_password)) {
         echo json_encode(array("success" => false, "message" => "Please input all fields."));
         exit();
     }
@@ -70,11 +70,11 @@ if (isset($_POST)) {
     //set admin information to database
     $now = date("Y-m-d H:i:s");
 
-    $sql = str_replace('admin_fname', $first_name, $sql);
-    $sql = str_replace('admin_lname', $last_name, $sql);
+    /*$sql = str_replace('admin_fname', $first_name, $sql);
+    $sql = str_replace('admin_lname', $last_name, $sql);*/
     $sql = str_replace('admin_email', $email, $sql);
     $sql = str_replace('admin_password', password_hash($login_password, PASSWORD_DEFAULT), $sql);
-    $sql = str_replace('admin_create_date', $now, $sql);
+    //$sql = str_replace('admin_create_date', $now, $sql);
 
     //create tables in datbase 
 

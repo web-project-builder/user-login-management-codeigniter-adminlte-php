@@ -1,4 +1,4 @@
-<footer class="main-footer">All rights reserved</footer>
+<footer class="main-footer">Thanks for using Web Project Builder</footer>
     <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
@@ -59,7 +59,7 @@
 			}
 		}
 		$("#"+Nameid).val("");
-		$("#error_"+Nameid).css("color","red").html("File formate not suport To uploade");
+		$("#error_"+Nameid).css("color","red").html("File format not support to upload");
 		return false;
 	}
 </script>

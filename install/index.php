@@ -1,13 +1,5 @@
 <?php
 
-/*$db_file_path = "../application/config/database.php";
-$db_file = file_get_contents($db_file_path);
-$is_installed = strpos($db_file, "HOSTNAME");
-if (!$is_installed) {
-    echo json_encode(array("success" => false, "message" => "Seems this app is already installed! You can't reinstall it again."));
-    exit();
-}*/
-
 $php_version_success = false;
 $mysql_success = false;
 $curl_success = false;
@@ -15,7 +7,7 @@ $gd_success = false;
 $allow_url_fopen_success = false;
 $timezone_success=false;
 
-$php_version_required = "5.3.0";
+$php_version_required = "5.5.0";
 $current_php_version = PHP_VERSION;
 
 //check required php version
